@@ -6,7 +6,7 @@
 /*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 16:08:29 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/06/17 16:08:33 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/06/17 16:10:21 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,7 @@ int	exec(char **argv, int i, char **envp)
 		return (err("error: cannot execute "), err(*argv), err("\n"));
 	}
 	waitpid(pid, &status, 0);
-	if (has_pipe && (dup2(fd[0], 0) == -1 || close(fd[0]) == -1
-			|| close(fd[1]) == -1))
+	if (has_pipe && (dup2(fd[0], 0) == -1 || close(fd[0]) == -1 || close(fd[1]) == -1))
 		return (err("error: fatal\n"));
 	return (WIFEXITED(status) && WEXITSTATUS(status));
 }
