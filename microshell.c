@@ -2,13 +2,14 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-int	err(char *str)
+static int	err(char *str)
 {
 	while (*str)
 		write(2, str++, 1);
 	return (1);
 }
-int	cd(char **argv, int i)
+
+static int	cd(char **argv, int i)
 {
 	if (i != 2)
 		return (err("error: cd: bad arguments\n"));
@@ -16,7 +17,8 @@ int	cd(char **argv, int i)
 		return (err("error: cd: cannot change directory to "), err(argv[1]), err("\n"));
 	return (0);
 }
-int	exec(char **argv, int i, char **envp)
+
+static int	exec(char **argv, int i, char **envp)
 {
 	int	fd[2];
 	int	status;
@@ -44,7 +46,8 @@ int	exec(char **argv, int i, char **envp)
 		return (err("error: fatal\n"));
 	return (WIFEXITED(status) && WEXITSTATUS(status));
 }
-int	main(int argc, char **argv, char **envp)
+
+static int	main(int argc, char **argv, char **envp)
 {
 	int	i;
 	int	status;
